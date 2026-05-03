@@ -63,6 +63,7 @@
 ```
 DermAIgnosis/
 │
+├── README.md                   # Documentation
 ├── app.py                      # Application Flask principale
 ├── database.sql                # Schema et donnees MySQL
 │
@@ -141,6 +142,14 @@ date_ajout TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 - Optimiseur : Adam
 
 ---
+
+## ⚠️ Modèle IA
+
+Le fichier `vgg16_skin_cancer.h5` n'est pas inclus dans ce repo car il dépasse la limite GitHub (100MB).
+
+Pour l'obtenir :
+- Contacte l'auteure : chaima-kidissi
+- Ou entraîne le modèle toi-même avec le dataset HAM10000
 
 ## ⚠️ Avertissement
 
