@@ -102,7 +102,7 @@ pip install flask pymysql tensorflow numpy pillow
 - Ouvrir phpMyAdmin → creer la base skin_cancer_db
 - Importer le fichier database.sql
 
-### 5. Ajouter le modele IA
+### 5. Ajouter le modèle IA
 - Placer vgg16_skin_cancer.h5 dans le dossier model/
 
 ### 6. Lancer l'application
@@ -112,7 +112,7 @@ Ouvrir le navigateur sur : http://127.0.0.1:5000
 
 ---
 
-## 🗄️ Schema de la Base de Donnees
+## 🗄️ Schéma de la Base de Données
 ```
 CREATE TABLE users (
 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -131,7 +131,7 @@ date_ajout TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ```
 ---
 
-## 🧠 Details du Modele IA
+## 🧠 Details du Modèle IA
 
 - Architecture : VGG16 avec Transfer Learning
 - Entree : Image RGB 224x224 pixels
