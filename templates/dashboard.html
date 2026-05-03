@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Tableau de bord - DermAIgnosis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/dashboard"><i class="fas fa-microscope"></i> DermAIgnosis</a>
+        <div class="ms-auto d-flex align-items-center">
+            <span class="text-white me-3"><i class="fas fa-user-md"></i> Dr. {{ session['username'] }}</span>
+            <a href="/logout" class="btn btn-outline-light btn-sm"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-chart-line text-primary"></i> Tableau de bord clinique</h2>
+        <div>
+            <a href="/predict" class="btn btn-primary me-2"><i class="fas fa-plus-circle"></i> Nouvelle analyse</a>
+            <a href="/consignes" class="btn btn-outline-info"><i class="fas fa-book-open"></i> Consignes</a>
+        </div>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card dashboard-card">
+                <i class="fas fa-users text-primary"></i>
+                <h3 class="mt-2">{{ total_patients }}</h3>
+                <p class="text-muted mb-0">Patients analysés</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card dashboard-card">
+                <i class="fas fa-exclamation-triangle text-danger"></i>
+                <h3 class="mt-2">{{ malin_count }}</h3>
+                <p class="text-muted mb-0">Lésions malignes</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card dashboard-card">
+                <i class="fas fa-check-circle text-success"></i>
+                <h3 class="mt-2">{{ benin_count }}</h3>
+                <p class="text-muted mb-0">Lésions bénignes</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Derniers patients -->
+    <div class="card">
+        <div class="card-header bg-white fw-bold">
+            <i class="fas fa-clock"></i> Derniers patients analysés
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr><th>Nom</th><th>Âge</th><th>Résultat</th><th>Probabilité</th><th>Action</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for p in recent_patients %}
+                        <tr>
+                            <td>{{ p.name }}</td>
+                            <td>{{ p.age }}</td>
+                            <td><span class="badge {% if p.result == 'Malin' %}bg-danger{% else %}bg-success{% endif %}">{{ p.result }}</span></td>
+                            <td class="{% if p.probability > 70 %}prob-high{% elif p.probability < 30 %}prob-low{% endif %}">{{ p.probability }}%</td>
+                            <td><a href="/followup/{{ p.id }}" class="btn btn-sm btn-outline-info"><i class="fas fa-chart-line"></i> Suivi</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer bg-white text-end">
+            <a href="/patients" class="btn btn-link">Voir tous les patients →</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <span>DermAIgnosis v1.0 - Assistance au diagnostic dermatologique par IA (usage professionnel)</span>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

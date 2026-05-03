@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Suivi patient - DermAIgnosis</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/dashboard">
+            <i class="fas fa-microscope"></i> DermAIgnosis
+        </a>
+        <a href="/patients" class="btn btn-outline-light btn-sm">
+            <i class="fas fa-list"></i> Retour aux patients
+        </a>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="card shadow">
+
+        <div class="card-header bg-info text-white">
+            <h4><i class="fas fa-chart-line"></i> Suivi longitudinal – {{ patient.name }}</h4>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+
+                <!-- Infos patient -->
+                <div class="col-md-6">
+                    <p><strong>Âge :</strong> {{ patient.age }} ans</p>
+
+                    <p><strong>Dernier diagnostic :</strong>
+                        <span class="badge {% if patient.result == 'Malin' %}bg-danger{% else %}bg-success{% endif %}">
+                            {{ patient.result }}
+                        </span>
+                    </p>
+
+                    <p><strong>Probabilité IA :</strong> {{ patient.probability }}%</p>
+
+                    <p><strong>Image de référence :</strong></p>
+                    <img src="/{{ patient.image_path }}" class="img-fluid rounded shadow-sm" style="max-height: 220px;">
+                </div>
+
+                <!-- Graphique -->
+                <div class="col-md-6">
+                    <canvas id="volumeChart" height="250"></canvas>
+
+                    <div class="alert alert-warning mt-3">
+                        <i class="fas fa-chart-simple"></i>
+                        <strong>Évolution simulée</strong><br>
+                        Taux de croissance estimé : {{ growth_rate }}
+                    </div>
+                </div>
+
+            </div>
+
+            <hr>
+
+            <!-- Historique -->
+            <h5>Historique des mesures (simulation clinique)</h5>
+            <ul class="list-group" id="historyList"></ul>
+
+            <div class="alert alert-secondary mt-3 small">
+                <i class="fas fa-info-circle"></i>
+                Ces données sont simulées. En pratique, intégrer des mesures réelles.
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<footer class="text-center mt-4 mb-3 text-muted">
+    <div class="container">
+        <span>Suivi personnalisé – DermAIgnosis</span>
+    </div>
+</footer>
+
+<!-- ✅ Injection PRO du JSON (solution robuste) -->
+<script id="history-data" type="application/json">
+    {{ history | tojson | safe }}
+</script>
+
+<script>
+    // ✅ Lecture sécurisée du JSON
+    const historyData = JSON.parse(
+        document.getElementById('history-data').textContent
+    );
+
+    // ✅ Création graphique
+    const ctx = document.getElementById('volumeChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: historyData.map(h => h.date),
+            datasets: [{
+                label: 'Volume tumoral (mm³)',
+                data: historyData.map(h => h.volume),
+                borderColor: '#e63946',
+                backgroundColor: 'rgba(230,57,70,0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.3,
+                pointRadius: 5,
+                pointBackgroundColor: '#e63946'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.raw + ' mm³';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // ✅ Historique dynamique
+    const listContainer = document.getElementById('historyList');
+
+    historyData.forEach(h => {
+        const li = document.createElement('li');
+
+        li.className = 'list-group-item d-flex justify-content-between align-items-center';
+
+        li.innerHTML = `
+            <span><i class="fas fa-calendar-alt"></i> ${h.date}</span>
+            <span><strong>${h.volume} mm³</strong> (volume estimé)</span>
+        `;
+
+        listContainer.appendChild(li);
+    });
+</script>
+
+</body>
+</html>

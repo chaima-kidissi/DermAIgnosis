@@ -1,0 +1,109 @@
+:root {
+    --primary: #0077b6;
+    --primary-dark: #005f8c;
+    --secondary: #2c3e50;
+    --success: #2ecc71;
+    --danger: #e63946;
+    --warning: #f4a261;
+    --light: #f8f9fa;
+    --gray: #6c757d;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    background: #eef2f5;
+    color: #1e2a3a;
+}
+
+.navbar {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.card {
+    border: none;
+    border-radius: 1.25rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+}
+
+.dashboard-card {
+    cursor: pointer;
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.dashboard-card i {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    border-radius: 2rem;
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-outline-primary {
+    border-radius: 2rem;
+}
+
+.table-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.badge-malin {
+    background-color: var(--danger);
+    color: white;
+    padding: 0.35rem 0.75rem;
+    border-radius: 2rem;
+    font-weight: 500;
+}
+
+.badge-benin {
+    background-color: var(--success);
+    color: white;
+    padding: 0.35rem 0.75rem;
+    border-radius: 2rem;
+}
+
+.prob-high {
+    color: var(--danger);
+    font-weight: bold;
+}
+
+.prob-low {
+    color: var(--success);
+}
+
+footer {
+    background-color: white;
+    border-top: 1px solid #dee2e6;
+    padding: 1rem 0;
+    margin-top: 3rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--gray);
+}
+
+.consigne-step {
+    background: var(--light);
+    border-left: 5px solid var(--primary);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.75rem;
+}
