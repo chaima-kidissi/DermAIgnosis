@@ -149,7 +149,6 @@ Le fichier `vgg16_skin_cancer.h5` n'est pas inclus dans ce repo car il dépasse 
 
 Pour l'obtenir :
 - Contacte l'auteure : chaima-kidissi
-- Ou entraîne le modèle toi-même avec le dataset HAM10000
 
 ## ⚠️ Avertissement
 
