@@ -162,7 +162,7 @@ L'application DermAIgnosis ne remplace pas le diagnostic d'un dermatologue.
 
 ## 🎥 Démonstration
 
-![DermAIgnosis Demo](DermAIgnosis.mp4)
+[▶️ Voir la démonstration](https://drive.google.com/file/d/1lhLbbnZxWEqi6wPIJaG0SnRKNGx7Nnfn/view?usp=sharing)
 
 ## 👩‍💻 Auteure
 
