@@ -92,7 +92,7 @@ DermAIgnosis/
 ### 1. Cloner le repository
 git clone https://github.com/chaima-kidissi/DermAIgnosis.git
 cd DermAIgnosis
-### 2. Creer un environnement virtuel
+### 2. Créer un environnement virtuel
 python -m venv .venv
 .venv\Scripts\activate
 ### 3. Installer les dependances
